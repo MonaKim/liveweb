@@ -1,0 +1,104 @@
+ <!doctype html>
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+	<style type ="text/css">
+		body {
+			background: #000;
+		}
+		div#video_box {
+			width:900px;
+			background:#000;
+			margin: 0px auto;
+		}
+		div#video_controls {
+			background: #000;
+			padding:0px;
+			margin:0px 100px 100px 100px;
+		}
+		div#playpause {
+			opacity:0.5 ;
+		}
+		div#playpause:hover{
+			background: #fff;
+			opacity:0;
+			cursor:pointer;
+		}
+
+	</style>
+	<script type="text/javascript">
+
+	var playbtn, seekslider, fullscreen;
+	var video, copy, copycanvas, draw;
+	window.onload = init;
+
+
+function init(){
+		console.log('start')
+		video = document.getElementById("myvideo");
+		playbtn = document.getElementById("playpause");
+		seekslider = document.getElementById("seekslider");
+		fullscreen = document.getElementById("fullscreen");
+		// copycanvas = document.getElementById('sourcecopy');
+		// copy = copycanvas.getContext('2d');
+		// var outputcanvas = document.getElementById('output');
+		// draw = outputcanvas.getContext('2d');
+		// setInterval("processFrame()", 33);
+		curtimetext = document.getElementById("curtimetext");
+		durtimetext = document.getElementById("durtimetext");
+		btn.addEventListener("click",playpause, false);
+		seekslider.addEventListener("change",vidSeek, false);
+		vid.addEventListener("timeupdate",seektime, false);
+		fullscreen.addEventListener("click",toggleFullScreen, false);
+	}
+
+	function playpause(){
+			if(vid.paused){
+				vid.play();
+				btn.innerHTML = "pause";
+			}else{
+				vid.pause();
+				btn.innerHTML = "play"
+			}
+		}
+		function vidSeek(){
+			var seekto = vid.duration *(seekslider.value/100);
+			vid.currentTime = seekto;
+		}
+		function seektime(){
+			var nt = vid.currentTime * (100/vid.duration);
+			console.log(nt)
+			seekslider.value = nt;
+		}
+		function toggleFullScreen(){
+			console.log('full')
+			if(vid.requestFullScreen){
+				vid.requestFullScreen();
+			} else if (vid.webkitRequestFullScreen){
+				vid.webkitRequestFullScreen();
+			} else if (vid.mozRequestFullScreen){
+			vid.mozRequestFullScreen();
+			}
+		}
+	}
+</script>
+</head>
+<body onload="init()" style="margin:0px">	
+	<div style="display:none">
+		<video id="sourcevid" autoplay="true" loop="true">
+<!-- 			<source src="BigBuckBunny_640x360.mp4" type="video/mp4"/>
+			<source src="BigBuckBunny_640x360.ogv" type="video/ogg"/> -->
+		</video>
+		<canvas id="sourcecopy" width="640" height="360"></canvas>
+	</div>
+<script type="text/javascript">
+// var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+// document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+</script>
+<script type="text/javascript">
+try {
+var pageTracker = _gat._getTracker("UA-15981974-1");
+pageTracker._trackPageview();
+} catch(err) {}</script>
+</body>
+</html>
