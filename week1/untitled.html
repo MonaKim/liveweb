@@ -3,28 +3,7 @@
 <head>
 <meta http-equiv="content-type" content="text/html; charset=UTF-8">
 	<style type ="text/css">
-		/*body {
-			background: #000;
-		}
-		div#video_box {
-			width:900px;
-			background:#000;
-			margin: 0px auto;
-		}
-		div#video_controls {
-			background: #000;
-			padding:0px;
-			margin:0px 100px 100px 100px;
-		}
-		div#playpause {
-			opacity:0.5 ;
-		}
-		div#playpause:hover{
-			background: #fff;
-			opacity:0;
-			cursor:pointer;
-		}
-*/
+
 	</style>
 	<script type="text/javascript">
 	var playbtn, seekslider, fullscreen;
@@ -40,20 +19,16 @@
 	function init(){
 		console.log('start')
 		video = document.getElementById("myvideo");
-		// playbtn = document.getElementById("playpause");
-		// seekslider = document.getElementById("seekslider");
-		// fullscreen = document.getElementById("fullscreen");
+		playbtn = document.getElementById("playpause");
+		seekslider = document.getElementById("seekslider");
+		fullscreen = document.getElementById("fullscreen");
+
 		copycanvas = document.getElementById('sourcecopy');
 		copy = copycanvas.getContext('2d');
 		var outputcanvas = document.getElementById('output');
 		draw = outputcanvas.getContext('2d');
 		setInterval("processFrame()", 33);
-				// curtimetext = document.getElementById("curtimetext");
-		// durtimetext = document.getElementById("durtimetext");
-		// btn.addEventListener("click",playpause, false);
-		// seekslider.addEventListener("change",vidSeek, false);
-		// vid.addEventListener("timeupdate",seektime, false);
-		// fullscreen.addEventListener("click",toggleFullScreen, false);
+		
 	}
 	function createTiles(){
 	var offsetX = TILE_CENTER_WIDTH+(PAINTRECT.width-SOURCERECT.width)/2;
@@ -244,37 +219,7 @@ function copyPixel(sImageData, sx, sy, dImageData, dx, dy){
 	dImageData.data[dpos+2] = sImageData.data[spos+2]; //B
 	dImageData.data[dpos+3] = sImageData.data[spos+3]; //A
 }
-
-	// 	function playpause(){
-	// 		if(vid.paused){
-	// 			vid.play();
-	// 			btn.innerHTML = "pause";
-	// 		}else{
-	// 			vid.pause();
-	// 			btn.innerHTML = "play"
-	// 		}
-	// 	}
-	// 	function vidSeek(){
-	// 		var seekto = vid.duration *(seekslider.value/100);
-	// 		vid.currentTime = seekto;
-	// 	}
-	// 	function seektime(){
-	// 		var nt = vid.currentTime * (100/vid.duration);
-	// 		console.log(nt)
-	// 		seekslider.value = nt;
-	// 	}
-	// 	function toggleFullScreen(){
-	// 		console.log('full')
-	// 		if(vid.requestFullScreen){
-	// 			vid.requestFullScreen();
-	// 		} else if (vid.webkitRequestFullScreen){
-	// 			vid.webkitRequestFullScreen();
-	// 		} else if (vid.mozRequestFullScreen){
-	// 		vid.mozRequestFullScreen();
-	// 		}
-	// 	}
-	// }
-	</script>
+</script>
 </head>
 <body onload="init()" style="margin:0px 0px 0px 100px; height: 100px; width:100px;">
 <div style = "display:none"> 
@@ -286,11 +231,6 @@ function copyPixel(sImageData, sx, sy, dImageData, dx, dy){
 	<div><center>
 	<canvas id="output" width="1550" height="1000" onmousedown="dropBomb(event, this)"></canvas></center>
 	</div>
-	<!-- <div id="video_controls">
-		<button id="btn">pause</button>
-		<input id="seekslider" type="range" min="0" max="100" step="1">
-		<button id="fullscreen"><&nbsp;></button>
-	</div> -->
 
 <script type="text/javascript">
 try {

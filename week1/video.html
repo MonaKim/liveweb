@@ -29,21 +29,16 @@
 	<script type="text/javascript">
 
 	var playbtn, seekslider, fullscreen;
-	var video, copy, copycanvas, draw;
+	var video, vid, copy, copycanvas, draw;
 	window.onload = init;
-
 
 function init(){
 		console.log('start')
-		video = document.getElementById("myvideo");
+		vid = document.getElementById("sourcevid");
 		playbtn = document.getElementById("playpause");
 		seekslider = document.getElementById("seekslider");
 		fullscreen = document.getElementById("fullscreen");
-		// copycanvas = document.getElementById('sourcecopy');
-		// copy = copycanvas.getContext('2d');
-		// var outputcanvas = document.getElementById('output');
-		// draw = outputcanvas.getContext('2d');
-		// setInterval("processFrame()", 33);
+
 		curtimetext = document.getElementById("curtimetext");
 		durtimetext = document.getElementById("durtimetext");
 		btn.addEventListener("click",playpause, false);
@@ -86,19 +81,15 @@ function init(){
 <body onload="init()" style="margin:0px">	
 	<div style="display:none">
 		<video id="sourcevid" autoplay="true" loop="true">
-<!-- 			<source src="BigBuckBunny_640x360.mp4" type="video/mp4"/>
-			<source src="BigBuckBunny_640x360.ogv" type="video/ogg"/> -->
+			<source src="portrait.mp4" type="video/mp4"/>
+			<source src="portrait.mov" type="video/mov"/>
 		</video>
-		<canvas id="sourcecopy" width="640" height="360"></canvas>
+<!-- 		<div id="video_controls">
+		<button id="btn">pause</button>
+		<input id="seekslider" type="range" min="0" max="100" step="1">
+		<button id="fullscreen"><&nbsp;></button> -->
 	</div>
 <script type="text/javascript">
-// var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
-// document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
 </script>
-<script type="text/javascript">
-try {
-var pageTracker = _gat._getTracker("UA-15981974-1");
-pageTracker._trackPageview();
-} catch(err) {}</script>
 </body>
 </html>
