@@ -1,0 +1,111 @@
+<html>
+	<head>
+
+	</head>
+
+	<body>
+<!-- 		<div id="map" style="width:100%;height:100%;"></div>
+ -->		
+ <canvas id="map" style="width:100%;height:100%;" >????</canvas>
+
+		<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDGpjsAO_zug6-XwvJf_xMalivvOufTafk&callback=myMap"></script>
+
+		<script type="text/javascript" scr="/socket.io/socket.io.js"></script>
+		<script type="text/javascript">
+
+
+
+			var socket = io.connect();
+			socket.on('connect', function() {
+				console.log("Connected");
+			});
+
+			window.addEventListener('load',myMap);
+
+			// var mycolor = "#00" + Math.floor(Math.random() * 9) + Math.floor(Math.random() * 9) +
+			// Math.floor(Math.random() * 9) +Math.floor(Math.random() * 9) + Math.floor(Math.random() * 9);
+			// console.log(mycolor);
+
+
+			function myMap() {
+		var mapCanvas = document.getElementById("map");
+  		var myCenter = new google.maps.LatLng(40.71285,-74.00695); 
+  		var mapOptions = {center: myCenter, zoom: 18, mapTypeId:google.maps.MapTypeId.HYBRID,  zoomControl: true,
+    zoomControlOptions: {style: google.maps.ZoomControlStyle.SMALL}};
+    //disableDefaultUI: true
+    //google.maps.MapTypeControlStyle.DROPDOWN_MENU
+    //style: google.maps.MapTypeControlStyle.DROPDOWN_MENU,
+    //position: google.maps.ControlPosition.TOP_CENTER
+  		var map = new google.maps.Map(mapCanvas,mapOptions);
+  		map.setTilt(100);
+  		var marker = new google.maps.Marker({
+    		position: myCenter,
+    		animation: google.maps.Animation.BOUNCE
+  		});
+		marker.setMap(map);
+		var infowindow = new google.maps.InfoWindow({
+  		content:"Let's Draw!"
+  		});
+		infowindow.open(map,marker);
+		}
+
+
+			function init(){
+				var canvas = document.getElementById("map");
+				var contex = canvas.getContext("2d");
+				context.beginPath();
+				context.strokeStyle="#00FF00";
+				context.moveTo(0,0);
+			 	context.lineTo(100,100);
+			 	context.stroke();
+
+			 	var px = 0;
+			 	var py = 0;
+			 	canvas.addEventListener('mousemove', function(evt){
+			 			console.log(evt);
+			 			context.beginPath();
+			 			context.strokeStyle="#00FF00";
+			 			context.moveTo(px,py);
+			 			context.lineTo(evt.clientX,evt.clientY);
+			 			context.stroke();
+
+			 			var objtosend = {
+			 				x: evt.clientX,
+			 				y: evt.clientY,
+			 				px: px,
+							py: py,
+
+			 			};
+			 			socket.emit('drawing',objtosend);
+
+			 			px = evt.clientX;
+			 			py = evt.clientY;
+			 	});
+
+			 	socket.on('drawing',function(receivedData) {
+			 		context.beginPath();
+			 		context.strokeStyle=receivedData.data;
+			 		context.moveTo(receivedData.px,receivedData.py);
+			 		context.lineTo(receivedData.x,receivedData.y);
+			 			context.stroke();
+			 			// px = evt.clientX;
+			 			// py = evt.clientY;
+			 	});
+				stroke(0,0,255)
+				line(0,0,100,100)
+			}
+
+// function copy(){
+// 	var imgData = contex.getImageData(10,10,50,50);
+// 	red=imgData.data[0];
+// 	green=imgData.data[1];
+// 	blue=imgData.data[2];
+// 	alpha=imgData.data[3];
+// 	alert(red + " " + green + " " + blue + " " + alpha);
+// 	contex.putImageData(imgData, 10, 70);
+// }
+		
+		</script>
+<onclick = "copy()"></onclick>
+	</body>
+</html>
